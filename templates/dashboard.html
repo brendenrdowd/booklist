@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h1>Your Reading List <small>Welcome, {{session.name}}.</small></h1>
+<p>Here's whats on your reading list.</p>
+<a href="/books" class="btn btn-primary">View Books</a>
+<a href="/addBook" class="btn btn-success">Add a Book to the Library</a>
+<hr>
+<table class="table table-striped">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th></th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.isbn}}</td>
+        <td>
+            <form action="{{url_for('remove',id=book.id)}}" method="POST">
+                <input type="hidden" name="method" value="DELETE">
+                <input type="submit" value="Remove" class="btn btn-danger">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+{% endblock %}

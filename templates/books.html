@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="sticky-top">
+    <h1>Books</h1>
+    <p>Here is a collection of all the books added to our library, enjoy.</p>
+    {% if session.logged_in %}
+    <a href="/addBook" class="btn btn-success">Add Book</a>
+</div>
+{% endif %}
+<form class="form-inline my-2 my-lg-1" action="/search" method="POST">
+    <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Search Not Working">
+    <button disabled class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+<hr>
+<table class="table table-striped">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th></th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.isbn}}</td>
+        {% if session.logged_in %}
+        <td>
+            <form action="{{url_for('addToList',id=book.id)}}" method="POST">
+                <input type="submit" class="btn btn-success btn-sm" value="Add to List">
+            </form>
+        </td>
+        {% else %}
+        <td><a href="/login" class="btn btn-warning btn-sm">Log in to Save</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+<br>
+{% endblock %}

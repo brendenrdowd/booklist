@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1>Welcome to Bookist</h1>
+    <p class="lead">Bookist is a new way to discover and manage your reading list. Sign up below to get started!</p>
+    <a type="button" class="btn btn-primary" href="/login">Already a user?</a>
+</div>
+<hr>
+<div class="container">
+    <h1 class="text-center">Register</h1>
+    {% from "partials/_formhelpers.html" import render_field %}
+    <form method="POST" action="/register">
+        <div class="form-group">
+            {{render_field(form.fname,class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.lname,class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.email,class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.password,class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{render_field(form.confirm,class_="form-control")}}
+        </div>
+        <input type="submit" class="btn btn-success btn-lg btn-block" value="Sign Up">
+    </form>
+    <br>
+</div> 
+{% endblock %}
