@@ -3,15 +3,21 @@ from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
+from dotenv import load_dotenv
 
 app =  Flask(__name__)
 
+APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top
+dotenv_path = os.path.join(APP_ROOT, '.env')
+load_dotenv(dotenv_path)
+
+
 # Config MySQL
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_DB'] = 'booklist'
+app.config['MYSQL_USER'] = os.getenv('USER')
+app.config['MYSQL_DB'] = os.getenv('DB')
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-app.secret_key = 'aksjdfhaskjdf'
+app.secret_key = os.getenv('SESSION_KEY')
 
 # init MySQL
 mysql = MySQL(app)
